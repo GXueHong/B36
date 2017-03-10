@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>react中实现数据双向绑定</h2>
+		<p>react虽然是mvc框架 但是他也可以实现mvvm中数据双向绑定</p>
+		<div id="demo"></div>
+		<script type="text/javascript" src="js/lib/react-with-addons.min.js" ></script>
+		<script type="text/javascript" src="js/lib/react-dom.min.js" ></script>
+		<script type="text/javascript" src="js/lib/browser.min.js" ></script>
+		<script type="text/babel">
+			var MsgBox = React.createClass({
+				mixins:[React.addons.LinkedStateMixin],
+				getInitialState:function(){
+				   return {
+				   	   info:"我真是太帅了！",
+				   	   isTrue:true
+				   }	
+				},
+				render:function(){
+					return (<div>
+						<h1>树波同学说:{this.state.info}</h1>
+						<h2>陈宇同学说：{this.state.isTrue?"我不服":"我虽然不帅 但我有对象"}</h2>
+						<input type="text" valueLink={this.linkState("info")}/>
+						<input type="checkbox" checkedLink={this.linkState("isTrue")}/>
+					</div>)
+				}
+			})
+			ReactDOM.render(<MsgBox></MsgBox>,document.getElementById("demo"))
+			
+		</script>
+	</body>
+</html>

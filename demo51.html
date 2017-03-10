@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>数据双向绑定</h1>
+		<div id="demo"></div>
+		<script src="js/lib2/react-with-addons.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib2/JSXTransformer.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/jsx">
+			var Father = React.createClass({
+				mixins:[React.addons.LinkedStateMixin],
+				getInitialState:function(){
+					return {
+						info:"爱笑的女孩运气不会太差",
+						infos:"对的对的"
+					}
+				},
+				render:function(){
+					return (
+						<div>
+							<h5>是不是说:{this.state.info}</h5>
+							<input type="text" valueLink={this.linkState("info")} />
+							<Child message={this.linkState("info")} messages={this.state.infos} />
+						</div>
+					)
+				}
+			})
+			var Child = React.createClass({
+				render:function(){
+					return(
+						<div>
+							<h4>{this.props.message}</h4>
+							<GrandChild {...this.props}/>
+						</div>
+					)
+				}
+			})
+			var GrandChild = React.createClass({
+				render:function(){
+					return(
+						<div>
+							<h4>{this.props.messages}</h4>
+						</div>
+					)
+				}
+			})
+			React.render(<Father />,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

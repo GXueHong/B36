@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo"></div>
+		<script src="js/lib/react.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/react-dom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/babel">
+			var MsgBox = React.createClass({
+				clickMe:function(e){
+					console.log(e.target)
+				},
+				render:function(){
+					return (
+						<button onClick={this.clickMe}>点我</button>
+					)
+				}
+			})
+			ReactDOM.render(<MsgBox />,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

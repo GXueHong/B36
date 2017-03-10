@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>react的被动更新</h2>
+		<p>react是单向数据流操作 默认他是不去主动添加dom内容的</p>
+		<div id="demo"></div>
+		<script type="text/javascript" src="js/lib/react.min.js" ></script>
+		<script type="text/javascript" src="js/lib/react-dom.min.js" ></script>
+		<script type="text/javascript" src="js/lib/browser.min.js" ></script>
+		<script type="text/babel">
+			var FormBox = React.createClass({
+				getInitialState:function(){
+					return {
+						info:"好好学习 将来赚大钱",
+						name:"tianrui3"
+					}
+				},
+				inputChange:function(e){
+					this.setState({
+						info:e.target.value
+					})
+				},
+				selectChange:function(e){
+					this.setState({
+						name:e.target.value
+					})
+				},
+				submitMe:function(e){
+					e.preventDefault()
+				},
+				render:function(){
+					return (
+						<form onSubmit={this.submitMe}>
+						  <input type="text" value={this.state.info} onChange={this.inputChange}/>
+						  <br/>
+						  <select value={this.state.name} onChange={this.selectChange}>
+						    <option value="tianrui">tianrui</option>
+						    <option value="tianrui2">tianrui2</option>
+						    <option value="tianrui3">tianrui3</option>
+						  </select>
+						  <input type="submit" />
+						</form>
+					)
+				}
+			})
+			ReactDOM.render(<FormBox/>,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

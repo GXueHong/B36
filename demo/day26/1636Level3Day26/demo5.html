@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>数据双向绑定 父子组件的值传递</h2>
+		<div id="demo"></div>
+		<script type="text/javascript" src="js/lib2/react-with-addons.min.js" ></script>
+		<script type="text/javascript" src="js/lib2/JSXTransformer.js" ></script>
+		<script type="text/jsx">
+			var Father = React.createClass({
+				mixins:[React.addons.LinkedStateMixin],
+				getInitialState:function(){
+					return {
+						info:"过完年 该减肥了",
+						infos:'老师也是啊'
+					}
+				},
+				render:function(){
+					return (
+						<div>
+						<h2>王迪说:{this.state.info}</h2>
+						<input type="text" valueLink={this.linkState("info")} />
+						<Child message={this.linkState("info")} messages={this.state.infos}/>
+						</div>
+					)
+				}
+			})
+			
+			var Child = React.createClass({
+				render:function(){
+					return (<div>
+						<h2>{this.props.message}</h2>
+						<GrandChild {...this.props}/>
+					</div>)
+				}
+			})
+			
+			var GrandChild = React.createClass({
+				render:function(){
+					return <p>{this.props.messages}</p>
+				}
+			})
+			
+			React.render(<Father/>,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

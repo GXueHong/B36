@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<h2>关于react中事件</h2>
+		<p>react事件中它自己封装了event对象 为了解决各个浏览器的兼容性</p>
+		<div id="demo"></div>
+		<p>react 默认获取event对象 为空 为了提高性能</p>
+		<script type="text/javascript" src="js/lib/react.min.js" ></script>
+		<script type="text/javascript" src="js/lib/react-dom.min.js" ></script>
+		<script type="text/javascript" src="js/lib/browser.min.js" ></script>
+		<script type="text/babel">
+		  //component 组件
+			var MsgBox = React.createClass({
+				clickMe:function(e){
+					console.log(e.target);
+				},
+				render:function(){
+					return(<button onClick={this.clickMe}>点击我 好不好</button>)
+				}
+			})
+			
+			ReactDOM.render(<MsgBox></MsgBox>,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>react中特殊属性 ref</h2>
+		<div id="demo"> </div>
+		<script type="text/javascript" src="js/lib/react.min.js" ></script>
+		<script type="text/javascript" src="js/lib/react-dom.min.js" ></script>
+		<script type="text/javascript" src="js/lib/browser.min.js" ></script>
+		<script type="text/babel">
+			var FormBox = React.createClass({
+				getInitialState:function(){
+					return {
+						info:"好好好"
+					}
+				},
+				changeMe:function(e){
+					this.setState({
+						info:e.target.value
+					})
+				},
+				suMe:function(e){
+					e.preventDefault();
+					//找到dom节点
+					console.log(ReactDOM.findDOMNode(this.refs["inputValue"]).value)
+					
+				},
+				render:function(){
+					return (<form onSubmit={this.suMe}>
+						<input type="text" value={this.state.info} onChange = {this.changeMe} ref="inputValue"/>
+						<input type="submit" />
+					</form>)
+				}
+			})
+			
+			ReactDOM.render(<FormBox></FormBox>,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

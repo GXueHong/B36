@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>数据双向绑定</h1>
+		<div id="demo"></div>
+		<script src="js/lib/react-with-addons.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/react-dom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/babel">
+			var MsgBox = React.createClass({
+				mixins:[React.addons.LinkedStateMixin],
+				getInitialState:function(){
+					return {
+						info:"爱笑的女孩运气不会太差",
+						isTrue:true
+					}
+				},
+				render:function(){
+					return (
+						<div>
+							<h5>是不是说:{this.state.info}</h5>
+							<h6>然后你接：{this.state.isTrue?"爱笑的女孩不止运气不会太差":"笑纹也不会太少"}</h6>
+							<input type="text" valueLink={this.linkState("info")} />
+							<input type="checkbox" checkedLink={this.linkState("isTrue")} />
+						</div>
+					)
+				}
+			})
+			ReactDOM.render(<MsgBox />,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

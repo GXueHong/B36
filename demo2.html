@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo"></div>
+		<script src="js/lib/react.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/react-dom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/babel">
+			var FormBox = React.createClass({
+				getInitialState:function(){
+					return {
+						info:"皮皮虾我们走。",
+						name:"天天向上"
+					}
+				},
+				inputChange:function(e){
+					this.setState({
+						info:e.target.value
+					})
+				},
+				selectChange:function(e){
+					this.setState({
+						name:e.target.value
+					})
+				},
+				submitMe:function(e){
+					e.preventDefault();
+				},
+				render:function(){
+					return (
+						<form onSubmit={this.submitMe}>
+							<input type="text" value={this.state.info} onChange={this.inputChange} />	
+							<br />
+							<select value={this.state.name} onChange={this.selectChange}>
+								<option value="好好学习">好好学习</option>
+								<option value="天天向上">天天向上</option>
+								<option value="将来挣大钱">将来挣大钱</option>
+							</select>
+							<input type="submit" />
+						</form>
+					)
+				}
+			})
+			ReactDOM.render(<FormBox />,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

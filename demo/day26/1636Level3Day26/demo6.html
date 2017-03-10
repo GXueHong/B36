@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>组件的生命周期</h2>
+		<p>分为三个阶段</p>
+		<p>Mounting：初始渲染中</p>
+		<p>Updating：重新渲染中</p>
+		<p>Unmounting：卸载中</p>
+		-----------------------------------
+		<p>初始渲染中(又包括了五个生命周期函数)</p>
+		<p>getDefaultProps 设置默认props 在组件渲染时只执行一次</p>
+		<p>getInitialState 初始化设置状态</p>
+		<p>componentWillMount：在渲染之前最后一次执行</p>
+		<p>render：创建虚拟dom的渲染</p>
+		<p>componentDidMount：渲染完毕后调用 在这个函数中你可以获取真实的dom 在这个函数中进行一系列的操作</p>
+		-----------------------------------
+		<p>重新渲染中（又包括五个生命周期函数）</p>
+		<p>componentWillReceiveProps:当组件接受到新的props时 触发 在这里你可以修改props和状态</p>
+		<p>shouldComponentUpdate：是否进行第二次渲染 返回时布尔类型</p>
+		<p>componentWillUpdate：这更新渲染之前最后一次执行 在这里 不可以修改props和状态 只会在重新渲染时候才会调用</p>
+		<p>render：创建虚拟dom的渲染</p>
+		<p>componentDidUpdate:更新渲染完毕后执行 可以操作获取真实的dom（指修改完后的dom）</p>
+		-------------------------------------
+		<p>卸载中（只包含了一个生命周期函数）</p>
+		<p>componentWillUnmount：在你组件卸载之前调用执行</p>
+		<div id="demo"></div>
+		<script type="text/javascript" src="js/lib/react.min.js" ></script>
+		<script type="text/javascript" src="js/lib/react-dom.min.js" ></script>
+		<script type="text/javascript" src="js/lib/browser.min.js" ></script>
+		<script type="text/babel">
+			var Zujian = React.createClass({
+				getDefaultProps:function(){
+					console.log("getDefaultProps");
+					return {
+						title:"生命周期函数"
+					}
+				},
+				getInitialState:function(){
+					console.log("getInitialState");
+					return {
+						info:"初始渲染状态"
+					}
+				},
+				componentWillMount:function(){
+					console.log("componentWillMount")
+					this.setState({
+						info:"初始渲染 状态修改最后一次"
+					})
+				},
+				componentDidMount:function(){
+					console.log("componentDidMount")
+					document.getElementById("aaa").style.background="orange";
+				},
+				clickMe:function(){
+					this.setState({
+						info:"第二次渲染"
+					})
+				},
+				componentWillUnmount:function(){
+					console.log("componentWillUnmount");
+					alert("你是否真的要抛弃我")
+				},
+				killMe:function(){
+					//卸载组件
+					ReactDOM.unmountComponentAtNode(document.getElementById("demo"))
+				},
+				render:function(){
+					return (<div>
+						<h2 id="aaa">{this.props.title}</h2>
+						<p>{this.state.info}</p>	
+						<button onClick={this.clickMe}>点我</button>
+						<button onClick={this.killMe}>抛弃我</button>
+						<Child message={this.state.info}></Child>
+					</div>)
+				}
+			})
+			
+			var Child = React.createClass({
+				componentWillReceiveProps:function(nextProps){
+					console.log(nextProps)
+					console.log("componentWillReceiveProps")
+				},
+				shouldComponentUpdate:function(){
+					console.log("shouldComponentUpdate");
+					return true;
+				},
+				componentWillUpdate:function(){
+					console.log("componentWillUpdate")
+				},
+				componentDidUpdate:function(){
+					console.log("componentDidUpdate")
+				},
+				render:function(){
+					console.log("render")
+					return (<div>
+						<h2>{this.props.message}</h2>
+					</div>)
+					
+				}
+				
+				
+			})
+			
+			
+			
+			ReactDOM.render(<Zujian></Zujian>,document.getElementById("demo"))
+		</script>
+	</body>
+</html>

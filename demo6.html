@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>数据双向绑定</h1>
+		<div id="demo"></div>
+		<script src="js/lib/react-with-addons.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/react-dom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/babel">
+			var Zujian = React.createClass({
+				getDefaultProps:function(){
+					console.log("getDefaultProps 设置默认props，在组件渲染时只执行一次")
+					return {
+						title:"好帅网"
+					}
+				},
+				getInitialState:function(){
+					console.log("getInitialState 初始化设置状态");
+					return {
+						info:"666"
+					}
+				},
+				componentWillMount:function(){
+					console.log("componentWillMount 在渲染之前最后一次执行")
+					this.setState({
+						info:"初始渲染 状态修改最后一次"
+					})
+				},
+				componentDidMount:function(){
+					console.log("componentDidMount 渲染完毕后调用，在这个函数中你可以获取真是的dom在这个函数中进行一系列的操作")
+					document.getElementById("aaa").style.background="#ff0"
+				},
+				render:function(){
+					console.log("render 创建虚拟dom的渲染");
+					return (<div>
+						<h2 id="aaa">{this.props.title}</h2>
+						<p>{this.state.info}</p>
+					</div>)
+				}
+			})
+			ReactDOM.render(<Zujian />,document.getElementById("demo"))
+		</script>
+	</body>
+</html>
